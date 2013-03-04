@@ -1,0 +1,11 @@
+{% extends 'confidence_circle/base.html' %}
+
+{% block confidence_circle_content %}
+    <h2>List</h2>
+    {% for confidencecircle in confidencecircle_list %}
+        {% if forloop.first %}<ul>{% endif %}
+            <li><a href="{{ confidence.get_absolute_url }}">>{{ confidence }}</a></li>
+        {% if forloop.last %}</ul>{% endif %}
+    {% endfor %}
+    <a href="{% url 'confidence_circle_add' %}">Create</a>
+{% endblock %}

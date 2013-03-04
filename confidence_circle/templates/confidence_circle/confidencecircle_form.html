@@ -1,0 +1,8 @@
+{% extends 'confidence_circle/base.html' %}
+
+{% block confidence_circle_content %}
+    <h2>Create/Update</h2>
+    <form>{% csrf_token %}
+        {{ form.as_p }}
+    </form>
+{% endblock %}

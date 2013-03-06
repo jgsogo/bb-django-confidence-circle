@@ -27,7 +27,7 @@ class ConfidenceCircle(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('confidence_circle_detail', kwargs={'slug':self.slug, 'pk':self.pk})
+        return reverse('confidence_circle_detail', kwargs={'slug':self.slug, 'confidencecircle_pk':self.pk})
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)

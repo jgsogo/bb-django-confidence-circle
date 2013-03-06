@@ -2,7 +2,7 @@
 
 {% block confidence_circle_content %}
     <h2>{{ confidencecircle }}</h2>
-    <small>(<a href="{%  url 'confidence_circle_update' confidencecircle.slug confidencecircle.pk %}">update</a>|<a href="{% url 'confidence_circle_delete' confidencecircle.slug confidencecircle.pk %}">delete</a> )</small>
+    <small>(<a href="{%  url 'confidence_circle_update' slug=confidencecircle.slug confidencecircle_pk=confidencecircle.pk %}">update</a>|<a href="{% url 'confidence_circle_delete' slug=confidencecircle.slug confidencecircle_pk=confidencecircle.pk %}">delete</a> )</small>
 
     <ul>
         <li><strong>Name:</strong> {{ confidencecircle.name }}</li>

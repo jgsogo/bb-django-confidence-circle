@@ -4,7 +4,7 @@
     <h2>List</h2>
     {% for confidencecircle in confidencecircle_list %}
         {% if forloop.first %}<ul>{% endif %}
-            <li><a href="{% url 'confidence_circle_detail' slug=confidencecircle.slug pk=confidencecircle.pk %}">{{ confidencecircle }}</a> (<a href="{%  url 'confidence_circle_update' slug=confidencecircle.slug pk=confidencecircle.pk %}">update</a>|<a href="{% url 'confidence_circle_delete' slug=confidencecircle.slug pk=confidencecircle.pk %}">delete</a> )</li>
+            <li><a href="{% url 'confidence_circle_detail' slug=confidencecircle.slug confidencecircle_pk=confidencecircle.pk %}">{{ confidencecircle }}</a> (<a href="{%  url 'confidence_circle_update' slug=confidencecircle.slug confidencecircle_pk=confidencecircle.pk %}">update</a>|<a href="{% url 'confidence_circle_delete' slug=confidencecircle.slug confidencecircle_pk=confidencecircle.pk %}">delete</a> )</li>
         {% if forloop.last %}</ul>{% endif %}
     {% endfor %}
     <a href="{% url 'confidence_circle_add' %}">Create</a>

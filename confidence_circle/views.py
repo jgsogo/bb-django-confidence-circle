@@ -6,15 +6,17 @@ from django.core.urlresolvers import reverse
 
 from confidence_circle.models import ConfidenceCircle
 from confidence_circle.forms import ConfidenceCircleForm
+from confidence_circle.mixins import ConfidenceCircleMixin
+
+# Views about ConfidenceCircle model
 
 class ConfidenceCircleList(ListView):
-    model = ConfidenceCircle
-
     def get_queryset(self):
-        return super(ConfidenceCircleList, self).get_queryset().filter(user=self.request.user)
+        return ConfidenceCircle.objects.filter(user=self.request.user)
 
-class ConfidenceCircleDetail(DetailView):
-    model = ConfidenceCircle
+
+class ConfidenceCircleDetail(ConfidenceCircleMixin, DetailView):
+    pass
 
 class ConfidenceCircleCreate(CreateView):
     model = ConfidenceCircle
@@ -28,8 +30,7 @@ class ConfidenceCircleCreate(CreateView):
     def get_success_url(self):
         return reverse("confidence_circle_home")
 
-class ConfidenceCircleUpdate(UpdateView):
-    model = ConfidenceCircle
+class ConfidenceCircleUpdate(ConfidenceCircleMixin, UpdateView):
     form_class = ConfidenceCircleForm
 
     def get_form_kwargs(self):
@@ -38,8 +39,13 @@ class ConfidenceCircleUpdate(UpdateView):
         return kwargs
 
 
-class ConfidenceCircleDelete(DeleteView):
-    model = ConfidenceCircle
+class ConfidenceCircleDelete(ConfidenceCircleMixin, DeleteView):
 
     def get_success_url(self):
         return reverse("confidence_circle_home")
+
+# Views related to users
+
+class ConfidenceCircleUserList(ConfidenceCircleMixin, ListView):
+    def get(self, request, *args, **kwargs):
+        pass

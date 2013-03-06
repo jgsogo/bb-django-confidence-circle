@@ -6,6 +6,7 @@ from slugify import slugify
 from django.conf import settings
 from django.db import models
 from django.utils.translation import  ugettext_lazy as _
+from django.core.urlresolvers import reverse
 
 from model_utils import Choices
 from model_utils.managers import QueryManager
@@ -14,16 +15,19 @@ import settings as app_settings
 
 class ConfidenceCircle(models.Model):
     name = models.CharField(max_length=100)
-    slug = models.SlugField()
-    user = models.ForeignKey(settings.AUTH_USER_MODEL)
-    users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='in_confidencecircle_set', through='confidence_circle.ConfidenceCircleStatus')
+    slug = models.SlugField(editable=False)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, editable=False)
+    users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='in_confidencecircle_set', through='confidence_circle.ConfidenceCircleStatus', blank=True, null=True)
 
     class Meta:
         verbose_name = _('confidence circle')
         verbose_name_plural = _('confidence circles')
 
     def __unicode__(self):
-        return _('confidence circle for user %(user)s' % {'user': self.user})
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('confidence_circle_detail', kwargs={'slug':self.slug, 'pk':self.pk})
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)

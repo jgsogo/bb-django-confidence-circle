@@ -16,9 +16,9 @@ from confidence_circle.views import (ConfidenceCircleDetail, ConfidenceCircleUpd
 # Create URL optional parameters
 def get_url_optional():
     if app_settings.SINGLETON:
-        return '(?:(?P<slug>[\w]+)/)?(?:(?P<pk>[\d]+)/)?'
+        return '(?:(?P<slug>[-\w]+)/)?(?:(?P<pk>[\d]+)/)?'
     else:
-        return '(?P<slug>[\w]+)/(?P<pk>[\d]+)/'
+        return '(?P<slug>[-\w]+)/(?P<pk>[\d]+)/'
 _url_optional = get_url_optional()
 
 
@@ -40,7 +40,12 @@ urlpatterns = patterns('',
 if not app_settings.SINGLETON:
     from confidence_circle.views import ConfidenceCircleList, ConfidenceCircleCreate, ConfidenceCircleDelete
     urlpatterns += patterns('',
+        url(r'^$', login_required(ConfidenceCircleList.as_view()), name='confidence_circle_home'),
         url(r'^$', login_required(ConfidenceCircleList.as_view()), name='confidence_circle_list'),
         url(r'^add/$', login_required(ConfidenceCircleCreate.as_view()), name='confidence_circle_add'),
-        url(r'^(?P<slug>[\w]+)/(?P<pk>[\d]+)/delete/$', login_required(ConfidenceCircleDelete.as_view()), name='confidence_circle_delete'),
+        url(r'^(?P<slug>[-\w]+)/(?P<pk>[\d]+)/delete/$', login_required(ConfidenceCircleDelete.as_view()), name='confidence_circle_delete'),
+        )
+else:
+    urlpatterns += patterns('',
+        url(r'^$' % _url_optional, login_required(ConfidenceCircleDetail.as_view()), name='confidence_circle_home'),
         )

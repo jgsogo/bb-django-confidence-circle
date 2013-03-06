@@ -1,7 +1,8 @@
 {% extends 'confidence_circle/base.html' %}
 
 {% block confidence_circle_content %}
-    <h2>Confirm deletion</h2>
+    <h2>{{ confidencecircle }}</h2>
+    <small>(<a href="{%  url 'confidence_circle_update' confidencecircle.slug confidencecircle.pk %}">update</a>|<a href="{% url 'confidence_circle_delete' confidencecircle.slug confidencecircle.pk %}">delete</a> )</small>
 
     <ul>
         <li><strong>Name:</strong> {{ confidencecircle.name }}</li>
@@ -10,14 +11,11 @@
         <li><strong>Users:</strong> <small>(add)</small>
             {% for user in confidencecircle.users.all %}
                 {% if forloop.first %}<ul>{% endif %}
-                <li>{{ user }}</li>
+                    <li>{{ user }}</li>
                 {% if forloop.last %}</ul>{% endif %}
             {% endfor %}
         </li>
     </ul>
 
-    <form method="post">{% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Delete" />
-    </form>
+    <p><a href="{% url 'confidence_circle_home' %}">Home</a></p>
 {% endblock %}

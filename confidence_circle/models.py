@@ -15,8 +15,8 @@ import settings as app_settings
 
 class ConfidenceCircle(models.Model):
     name = models.CharField(max_length=100)
-    slug = models.SlugField(editable=False)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, editable=False)
+    slug = models.SlugField()
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
     users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='in_confidencecircle_set', through='confidence_circle.ConfidenceCircleStatus', blank=True, null=True)
 
     class Meta:

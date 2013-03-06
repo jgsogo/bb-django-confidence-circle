@@ -11,7 +11,7 @@ from organizations.backends import invitation_backend, registration_backend
 
 from confidence_circle.models import ConfidenceCircle
 from confidence_circle.forms import ConfidenceCircleForm, ConfidenceCircleUserAddForm, ConfidenceCircleUserForm
-from confidence_circle.mixins import ConfidenceCircleMixin
+from confidence_circle.mixins import ConfidenceCircleMixin, ConfidenceCircleUserMixin
 
 # Views about ConfidenceCircle model
 
